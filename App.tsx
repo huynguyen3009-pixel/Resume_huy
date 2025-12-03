@@ -11,8 +11,8 @@ import { getRandomTheme, getThemeById } from './utils/themeUtils';
 import { resumeData as initialData } from './data/resumeData';
 
 const App: React.FC = () => {
-  const [resumeData, setResumeData] = useState<ResumeData | null>(null);
-  const [inputMode, setInputMode] = useState<boolean>(true);
+  const [resumeData, setResumeData] = useState<ResumeData | null>(initialData);
+  const [inputMode, setInputMode] = useState<boolean>(false);
   const [inputText, setInputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
@@ -149,6 +149,12 @@ const App: React.FC = () => {
               className="px-4 py-3 text-gray-500 hover:text-gray-700 font-medium underline text-sm"
             >
               Load Example Data
+            </button>
+            <button
+               onClick={() => setInputMode(false)}
+               className="px-4 py-3 text-gray-500 hover:text-gray-700 font-medium text-sm"
+            >
+               Cancel
             </button>
           </div>
         </div>
