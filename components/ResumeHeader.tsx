@@ -11,7 +11,9 @@ interface ResumeHeaderProps {
 }
 
 export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ name, title, contact, theme, profileImage }) => {
-  const avatarUrl = profileImage || "https://picsum.photos/400/500?grayscale";
+  // Use uploaded image, or a blank placeholder if none (cleaner than random photo)
+  // If you want a specific default image, you can replace the null check.
+  const hasImage = !!profileImage;
 
   return (
     <header className={`flex flex-col-reverse md:flex-row justify-between items-start gap-8 mb-10 pb-8 border-b ${theme.colors.accent.replace('border-', 'border-opacity-30 border-')}`}>
@@ -51,12 +53,16 @@ export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ name, title, contact
         </div>
       </div>
 
-      <div className={`w-32 h-40 md:w-40 md:h-52 shrink-0 bg-gray-200 overflow-hidden shadow-sm border ${theme.colors.accent} self-center md:self-start`}>
-        <img 
-          src={avatarUrl}
-          alt={name}
-          className="w-full h-full object-cover"
-        />
+      <div className={`w-32 h-40 md:w-40 md:h-52 shrink-0 overflow-hidden shadow-sm border ${theme.colors.accent} self-center md:self-start bg-gray-100 flex items-center justify-center`}>
+        {hasImage ? (
+          <img 
+            src={profileImage}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <span className="text-gray-400 text-xs text-center px-2">Upload Photo</span>
+        )}
       </div>
     </header>
   );
